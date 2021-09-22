@@ -1,6 +1,6 @@
 <h1>we.borrow</h1>
 <h2 align='center'>대여물품관리 웹페이지 제작</h2>
-<h3 align='center'><b>🛠기술 스택🛠</b></h3>
+<h3 align='center'><b>🛠Tech Stack🛠</b></h3>
 <p align='center'>
 </br>
 <img src="https://img.shields.io/badge/react-61DAFB?style=flat-square&logo=react&logoColor=black"/></a> &nbsp
