@@ -8,18 +8,4 @@
 |@master1st|:computer:Back-end|
 |@ILWAT|:computer:Back-end|
 
-### Front-end 📫
-* Name : Kim Yu-bin
-* Student ID: 201910790
 
-### Front-End 📫
-* Name : Jeong Seo-hyun
-* Student ID: 201910832
-
-### Back-End📫
-* Name : Yoon Seok-hyun
-* Student ID: 201910790
-
-### Back-End 📫
-* Name : Jungho Moon
-* Student ID: 201910933
