@@ -13,8 +13,11 @@
 
 |이름|역할|
 |------|---|
-|@JSH99|:computer:Front-end|
-|@ubeeni|:art:Design|
-|@master1st|:computer:Back-end|
-|@ILWAT|:computer:Back-end|
+|[김유빈](https://github.com/ubeeni)|:art:Design|
+|[문정호](https://github.com/ILWAT)|:computer:Back-end|
+|[윤석현](https://github.com/master1st)|:computer:Back-end|
+|[정서현](https://github.com/JSH99)|:computer:Front-end|
+
+
+
 
