@@ -1,8 +1,7 @@
-# we.borrow
-### 대여물품관리서비스
-
-<h3><b>🛠 Tech Stack 🛠</b></h3>
-<p>
+<h1>we.borrow</h1>
+<h2 align='center'>대여물품관리 웹페이지 제작</h2>
+<h3 align='center'><b>🛠기술 스택🛠</b></h3>
+<p align='center'>
 </br>
 <img src="https://img.shields.io/badge/react-61DAFB?style=flat-square&logo=react&logoColor=black"/></a> &nbsp
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/></a> &nbsp
@@ -18,6 +17,7 @@
 |[문정호](https://github.com/ILWAT)|:computer:Back-end|
 |[윤석현](https://github.com/master1st)|:computer:Back-end|
 |[정서현](https://github.com/JSH99)|:computer:Front-end|
+
 
 
 
