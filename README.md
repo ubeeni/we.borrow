@@ -1,7 +1,7 @@
 # we.borrow
 ### 대여물품관리서비스
 
-<h3 align="center"><b>🛠 Tech Stack 🛠</b></h3>
+<h3><b>🛠 Tech Stack 🛠</b></h3>
 <p align="center">
 </br>
 <img src="https://img.shields.io/badge/react-61DAFB?style=flat-square&logo=react&logoColor=black"/></a> &nbsp
