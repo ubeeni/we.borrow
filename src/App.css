@@ -36,3 +36,129 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* 여기부터 수정하면 됩니다, 디자이너님♡ */
+
+/* 공통 */
+
+.head{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+.headerLogo{
+  margin-top: 10px;
+  width: 85px;
+  height: 12vh;
+  margin-left: 50px;
+}
+.headLogoImg{
+  width: 100%;
+  height: 12vh;
+  background-image: url("./img/headLogo.png");
+  background-size: 78% 78%;
+  background-color: black;
+  border-radius: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.help{
+  margin-top: 10px;
+  margin-right: 50px;
+  width: 80px;
+  height: 12vh;
+  display: inline;
+}
+.helpImg{
+  width: 100%;
+  height: 12vh;
+  float: left;
+  background-image: url("./img/helpImg.png");
+  background-size: 60% 60%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: white;
+  border: none;
+  cursor: help;
+}
+.MainContent{
+  width: 100%;
+  height: 75vh;
+  clear: both;
+  text-align: center;
+}
+.footer{
+  width: 100%;
+  height: 10vh;
+}
+.kakaoImg{
+  float: right;
+  padding: 15px 5px;
+  width: 40px;
+}
+.blogImg{
+  float: right;
+  padding: 15px 25px 15px 5px;
+  width: 40px;
+}
+
+
+/* Login page */
+.IDiconImg{
+  width: 6%;
+  margin: -5px 0;
+}
+.PWiconImg{
+  width: 6%;
+  margin: -5px 0;
+}
+.signUpButton{
+  margin-top: 360px;
+  width: 80px;
+  height: 27px;
+  cursor: pointer;
+}
+#JoinModal{
+  justify-content: center;
+}
+.joinButton{
+  margin: 5px 50px;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  border: solid 2px;
+  font-size: medium;
+  font-weight: bold;
+  cursor: pointer;
+}
+#register{
+  background-color: salmon;
+}
+#borrow{
+  background-color: mediumaquamarine;
+}
+.joinText{
+  float: left;
+  font-size: small;
+  padding: 10px 10px;
+  margin: 10px 15px;
+  border: slategrey solid 1px;
+  border-radius: 5%;
+}
+#joinButton{
+  padding: 3px;
+  margin-top: 20px;
+  margin-bottom: -5px;
+  cursor: pointer;
+}
+
+
+/* Join page */
+.SignUpLogo{
+  width: 60%;
+  border-radius: 85%;
+  margin-top: -10px;
+}
