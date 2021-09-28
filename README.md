@@ -16,9 +16,3 @@
 |[문정호](https://github.com/ILWAT)|:unlock:Back-end|
 |[윤석현](https://github.com/master1st)|:unlock:Back-end|
 |[정서현](https://github.com/JSH99)|:computer:Front-end|
-
-
-
-
-
->>>>>>> aa1ec82c84618fee8fccc982572a46dce95130d0
