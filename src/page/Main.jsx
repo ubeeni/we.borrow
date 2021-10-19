@@ -1,12 +1,14 @@
 import React from "react";
-import SignUpBox from "../component/signUpBox";
+import Modal from "react-modal";
+import Header from "../component/header"
 
 export default function Main() {
 
-
   return(
       <>
-        <h3>main page</h3>
+        <Header></Header>
+        <div className="MainContent" id="ListContent">  
+        </div>
       </>
 
   )
