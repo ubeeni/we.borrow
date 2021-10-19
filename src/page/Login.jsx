@@ -3,25 +3,17 @@ import LoginBox from "../component/loginBox";
 import Modal from 'react-modal';
 import kakaoIcon from "../img/kakao.png";
 import blogIcon from "../img/blog.png";
-
+import Header from "../component/header";
+import SignUpBox from "../component/signUpBox";
 
 export default function Login(){
 
-    const [helpOpen, setHelpOpen] = React.useState(false)
     const [joinOpen, setJoinOpen] = React.useState(false)
-    const [helpHead] = React.useState("문의사항")
+    const [registerOpen, setRegisterOpen] = React.useState(false)
+    const [userOpen, setUserOpen] = React.useState(false)
     const [joinHead] = React.useState("회원가입")
-    const [helpMessageValue] = React.useState("tjgus9966@gmail.com")
-    const [registerMessageValue] = React.useState("등록자가 물품을 등록합니다.")
-    const [borrowMessageValue] = React.useState("대여자가 물품을 대여합니다.")
-
-    const openHelpModal = () => {
-        setHelpOpen(true);
-    }
-
-    const closeHelpModal = () => {
-        setHelpOpen(false);
-    }
+    const [registerMessageValue] = React.useState("관리자가 물품을 등록합니다.")
+    const [borrowMessageValue] = React.useState("사용자가 물품을 대여합니다.")
 
     const openJoinModal = () => {
         setJoinOpen(true);
@@ -31,12 +23,24 @@ export default function Login(){
         setJoinOpen(false);
     }
 
-    const onClickHelp = () => {
-        openHelpModal();
-    }
-
     const onClickJoin = () => {
         openJoinModal();
+    }
+
+    const SignUpRegister = () => {
+        setRegisterOpen(true);
+    }
+
+    const closeRegisterModal = () => {
+        setRegisterOpen(false);
+    }
+
+    const SignUpUser = () => {
+        setUserOpen(true)
+    }
+
+    const closeUserModal = () => {
+        setUserOpen(false);
     }
     
     const customBoxStyles = {
@@ -53,24 +57,7 @@ export default function Login(){
 
     return(
         <>
-            <div className="head">
-                <div className="headerLogo">
-                    <div className="headLogoImg"></div>
-                </div>
-                <div className="help">
-                    <button className="helpImg" onClick={ () => onClickHelp() }></button>
-                    <Modal 
-                        isOpen={helpOpen} 
-                        style={customBoxStyles}
-                        >
-                            <h2>{helpHead}</h2>
-                            <p><i>{helpMessageValue}</i></p>
-                            <button onClick={closeHelpModal}>확인</button>
-                    </Modal>
-                        
-
-                </div>
-            </div>
+            <Header></Header>
             <div className="MainContent">
                 <LoginBox>
                 </LoginBox>
@@ -82,8 +69,34 @@ export default function Login(){
                         <h2>{joinHead}</h2>
                         <p>
                             <div>
-                                <button className="joinButton" id="register">등록</button>
-                                <button className="joinButton" id="borrow">대여</button>
+                                <button className="joinButton" id="register"
+                                    onClick={ () => SignUpRegister() }
+                                    >
+                                    관리자</button>
+                                <Modal
+                                    className="MainContent"
+                                    isOpen={registerOpen}
+                                    >
+                                    <SignUpBox 
+                                        signUp="관리자"
+                                        closeModal={closeRegisterModal}
+                                    />
+                                </Modal>
+
+
+                                <button className="joinButton" id="borrow"
+                                    onClick={ () => SignUpUser() }
+                                    >
+                                    사용자</button>
+                                <Modal
+                                    className="MainContent"
+                                    isOpen={userOpen}
+                                    >
+                                    <SignUpBox 
+                                        signUp="사용자"
+                                        closeModal={closeUserModal}
+                                    />
+                                </Modal>
                             </div>
                             <div>
                                 <div className="joinText">

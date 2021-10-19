@@ -1,24 +1,23 @@
 import React from 'react';
-import styled from 'styled-components';
-import Button from './button';
-import IDicon from "../img/id.png";
-import PWicon from "../img/pw.png";
 import Logo from "../img/headLogo.png";
+import styled from 'styled-components';
+import IDicon from "../img/id.png";
+import PWicon from "../img/pw.png"
 
 const StyledSignUp = styled.div`
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 50%; 
-  width: 360px;
-  margin-left: -180px;
+  width: 500px;
+  margin-left: -250px;
   align-items: center;
   background: white;
   border: 1px solid gray;
   border-radius: 10px;
-  padding: 30px 0;
-  
+  padding: 30px 0px;
+
   input {
-    height: 20px;
+    height: 25px;
     margin: 15px 10px;
     border: 2px solid;
   }
@@ -28,11 +27,12 @@ const StyledSignUp = styled.div`
   }
 `
 
-export default function SignUpBox() {
-  
+export default function SignUpBox({ signUp, closeModal }) {
+
   return <>
     <StyledSignUp>
         <img src={Logo} className="SignUpLogo"/>
+        <h2 className="signUpHead">{signUp} 회원가입</h2>
         <div id="userIDdiv">
           <img src={IDicon} className="IDiconImg"/>
           <input
@@ -49,9 +49,12 @@ export default function SignUpBox() {
             placeholder="PW"
           />
         </div>
-        <Button>
+        <button className="signUpBoxButton">
           가입하기
-        </Button> 
+        </button > 
+        <button className="signUpBoxButton" onClick={closeModal}>
+          닫기
+        </button>
     </StyledSignUp>
   </>;
 
