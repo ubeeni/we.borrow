@@ -40,7 +40,7 @@ export default function LoginBox() {
             placeholder="ID"
         />
         </div>
-        <div id="userPWdiv">
+        <div id="userPWdiv"> 
         <img src={PWicon} className="PWiconImg"/>
           <input
             id="userPW"
