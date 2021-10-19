@@ -12,10 +12,9 @@ export default function App() {
 <> 
         <Router> 
           <Switch>
-            <Route path="/" component={Login} />
             <Route path="/Main" component={Main} />
-              
-
+            <Route path="/" component={Login} />
+            
           </Switch>
         </Router> 
       </>

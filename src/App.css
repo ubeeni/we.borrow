@@ -158,7 +158,34 @@
 
 /* Join page */
 .SignUpLogo{
-  width: 60%;
+  width: 220px;
+  height: 180px;
   border-radius: 85%;
   margin-top: -10px;
+  margin-bottom: 10px;
+}
+.signUpHead{
+  margin-top: 5px;
+}
+.signUpBoxButton{
+  display: inline-block;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  background-color: black;
+  color: #d4f3f8;
+  width: 5.5rem;
+  height: 2.0rem;
+  font-weight: bolder;
+  cursor: pointer;
+  padding: 0 1rem;
+  text-align: center;
+  margin: 2px;
+}
+
+
+/* Main page */
+#ListContent{
+  height: 85vh;
+  background-color: aquamarine;
 }
