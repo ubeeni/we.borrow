@@ -243,10 +243,9 @@
   border: steelblue 2px solid;
   border-radius: 5px;
 }
-.tableHeader{
-  background-color: cornflowerblue !important; 
-  font-size: 22px;
+.RegisterInput{
+  display: block;
 }
-.column{
-  background-color: cornflowerblue;
+.inputDiv{
+  align-content: center;
 }
