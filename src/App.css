@@ -64,6 +64,7 @@
   border-radius: 50%;
   background-position: center center;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 .help{
   margin-top: 10px;
@@ -185,7 +186,108 @@
 
 
 /* Main page */
-#ListContent{
-  height: 85vh;
-  background-color: aquamarine;
+.searchDiv{
+  float: left;
+  margin: 20px 180px;
+}
+.searchTxt{
+  font-family: 'Jalnan';
+  font-size: 1rem;
+  font-weight: bold;
+}
+.searchInput{
+  height: 20px;
+  margin: 5px;
+  border: 1px solid;
+}
+.searchBtn{
+  font-family: 'Jalnan';
+  display: inline-block;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  background-color: black;
+  color: #d4f3f8;
+  width: 3.3rem;
+  height: 1.7rem;
+  font-size: 0.9em;
+  cursor: pointer;
+  text-align: center;
+  margin: 2px;
+  cursor: pointer;
+}
+.registerBtn{
+  font-family: 'Jalnan';
+  float: right;
+  margin: 15px 3px;
+  border: none;
+  border-radius: 5px;
+  width: 4.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: skyblue;
+}
+.deleteBtn{
+  font-family: 'Jalnan';
+  float: right; 
+  margin: 15px 3px;
+  border: none;
+  border-radius: 5px;
+  width: 4.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: bold; 
+  cursor: pointer;
+  background-color: tomato;
+}
+.returnBtn{
+  font-family: 'Jalnan';
+  float: right;
+  margin: 15px 3px;
+  margin-right: 180px;
+  border: none;
+  border-radius: 5px;
+  width: 4.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: bisque;
+}
+.lentBtn{
+  font-family: 'Jalnan';
+  float: right;
+  margin: 15px 3px;
+  margin-right: 180px;
+  border: none;
+  border-radius: 5px;
+  width: 4.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: plum;
+}
+/* table */
+.ag-theme-balham{
+  clear: both;
+  border: steelblue 2px solid;
+  border-radius: 5px;
+}
+.RegisterInput{
+  display: block;
+}
+.ReturnInput{
+  display: block;
+}
+.UserDetail{
+  display: block;
+  resize: none;
+}
+.tableHeader{
+  font-family: 'Jalnan';
+  font-size: 1.0rem;
+  background-color: powderblue;
 }
