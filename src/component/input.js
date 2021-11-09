@@ -6,13 +6,30 @@ const StyledInput = styled.div`
   align-items: center;
 
   input {
-    height: 20px;
+    height: 25px;
     margin: 15px 10px;
     border: 2px solid;
   }
+
+  button {
+    display: inline-block;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    background-color: black;
+    color: #d4f3f8;
+    width: 5.5rem;
+    height: 2.0rem;
+    fontSize: 1.5rem;
+    font-weight: bolder;
+    cursor: pointer;
+    padding: 0 1rem;
+    text-align: center;
+    margin: 2px;
+  }
 `
 
-export default function Input({title, detail, closeModal}) {
+export default function Input({title, detail, addData, closeModal}) {
   
   return <>
     <StyledInput>
@@ -38,7 +55,8 @@ export default function Input({title, detail, closeModal}) {
             className="detailsCheck"
             type="checkbox"/>{detail}
         </div>
-        <button onClick={closeModal}>{title}</button>
+        <button onClick={addData}>{title}</button>
+        <button onClick={closeModal}>닫기</button>
     </StyledInput>
   </>;
 

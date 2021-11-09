@@ -25,6 +25,7 @@ const StyledLogin = styled.div`
     margin-top: 30px;
     width: 80px;
     height: 27px;
+    cursor: pointer;
   }
 `
 
