@@ -17,7 +17,7 @@ export default function Header() {
   
     const [helpOpen, setHelpOpen] = React.useState(false)
     const [helpHead] = React.useState("문의사항")
-    const [helpMessageValue] = React.useState("tjgus9966@gmail.com")
+    const [helpMessageValue] = React.useState("https://github.com/JSH99/we.borrow")
    
     const openHelpModal = () => {
         setHelpOpen(true);
@@ -34,7 +34,7 @@ export default function Header() {
   return <>
     <div className="head">
       <div className="headerLogo">
-        <div className="headLogoImg"></div>        
+        <button className="headLogoImg" onClick={ () => window.location.href="/Login"}></button>        
       </div>
       <div className="help">
         <button className="helpImg" onClick={ () => onClickHelp() }></button>
@@ -49,5 +49,4 @@ export default function Header() {
       </div>
     </div>
   </>;
-
 }

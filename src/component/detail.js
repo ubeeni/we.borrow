@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledReturnInput = styled.div`
+const StyledDetail = styled.div`
   position: absolute;
   align-items: center;
 
@@ -29,31 +29,23 @@ const StyledReturnInput = styled.div`
   }
 `
 
-export default function ReturnInput({title, detail, addData, closeModal}) {
+export default function Detail({title, detail, addData, closeModal}) {
   
   return <>
-    <StyledReturnInput>
+    <StyledDetail>
        <h3>{title}</h3>
        <div classname="inputDiv">
+        <textarea className="UserDetail" readonly="readonly">물품명</textarea>
+        <textarea className="UserDetail" readonly="readonly">물품번호</textarea>
+        <textarea className="UserDetail" readonly="readonly">대여가능일수</textarea>
+        <textarea className="UserDetail" readonly="readonly">상세설명</textarea>
         <input
-          className="ReturnInput"
-          type="text"
-          placeholder="물품명"/>
-          <input
-            className="ReturnInput"
-            type="text"
-            placeholder="물품번호"/>
-          <input
-            className="ReturnInput"
-            type="text"
-            placeholder="대여자ID"/>
-          <input
-            className="detailsCheck"
-            type="checkbox"/>{detail}
+          className="detailsCheck"
+          type="checkbox"/>{detail}
         </div>
         <button onClick={addData}>{title}</button>
         <button onClick={closeModal}>닫기</button>
-    </StyledReturnInput>
+    </StyledDetail>
   </>;
 
 }
