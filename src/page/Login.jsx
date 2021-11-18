@@ -14,6 +14,7 @@ export default function Login(){
     const [joinHead] = React.useState("회원가입")
     const [registerMessageValue] = React.useState("관리자가 물품을 등록합니다.")
     const [borrowMessageValue] = React.useState("사용자가 물품을 대여합니다.")
+    const [checkAd, setCheckAdmin] = React.useState(0)
 
     const openJoinModal = () => {
         setJoinOpen(true);
@@ -28,6 +29,7 @@ export default function Login(){
     }
 
     const SignUpRegister = () => {
+        setCheckAdmin(1)
         setRegisterOpen(true);
     }
 
@@ -36,6 +38,7 @@ export default function Login(){
     }
 
     const SignUpUser = () => {
+        setCheckAdmin(0)
         setUserOpen(true)
     }
 
@@ -80,6 +83,7 @@ export default function Login(){
                                     <SignUpBox 
                                         signUp="관리자"
                                         closeModal={closeRegisterModal}
+                                        checkAdmin={checkAd}
                                     />
                                 </Modal>
 
@@ -95,6 +99,7 @@ export default function Login(){
                                     <SignUpBox 
                                         signUp="사용자"
                                         closeModal={closeUserModal}
+                                        checkAdmin={checkAd}
                                     />
                                 </Modal>
                             </div>
