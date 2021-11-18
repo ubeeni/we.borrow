@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
+import reactDom from 'react-dom';
 import styled from 'styled-components';
 import IDicon from "../img/id.png";
 import PWicon from "../img/pw.png";
+import axios from "axios";
 
 const StyledLogin = styled.div`
   position: absolute;
@@ -29,8 +31,42 @@ const StyledLogin = styled.div`
   }
 `
 
+
 export default function LoginBox() {
   
+const [id, setId] = useState('');
+const [pw, setPw] = useState('');
+
+const login = () => {
+  axios.post('http://localhost:4000/api/login', {
+    id: id,
+    pw: pw
+  })
+      .then((Response)=>{
+          if(Response.data[0].id==id && Response.data[0].password==pw) {
+            if(Response.data[0].checkadmin==0) {
+              window.location.href="/MainUser"
+            }
+            else {
+              window.location.href="/Main"
+            } 
+          }
+          else {
+            return alert('아이디와 비밀번호를 다시 확인하세요')
+          }
+      })
+      .catch((Error)=>{console.log(Error)}) 
+  
+}
+
+const onIdHandler = (event) => {
+  setId(event.currentTarget.value)
+}
+
+const onPwHandler = (event) => {
+  setPw(event.currentTarget.value)
+}
+
   return <>
     <StyledLogin>
         <div id="userIDdiv">
@@ -38,7 +74,9 @@ export default function LoginBox() {
           <input
             id="userID"
             type="text"
+            value={id}
             placeholder="ID"
+            onChange={onIdHandler}
         />
         </div>
         <div id="userPWdiv"> 
@@ -46,10 +84,12 @@ export default function LoginBox() {
           <input
             id="userPW"
             type="password"
+            value={pw}
             placeholder="PW"
+            onChange={onPwHandler}
           />
         </div>
-        <button onClick={ () => window.location.href="/Main" }>
+        <button onClick={login}>
           로그인
         </button> 
     </StyledLogin>

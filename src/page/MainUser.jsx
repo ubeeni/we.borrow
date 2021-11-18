@@ -6,6 +6,7 @@ import { AgGridReact } from "ag-grid-react";
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import axios from "axios";
 
 export default function MainUser() {
 
@@ -38,12 +39,12 @@ export default function MainUser() {
   };
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 130, headerCheckboxSelection: true, checkboxSelection: true },
-    { field: 'goods_name', headerName: '물품명', width: 200 },
-    { field: 'goods_NO', headerName: '물품번호', width: 200 },
-    { field: 'lent_days', headerName: '대여가능일수', width: 200 },
-    { field: 'lent_state', headerName: '대여상태', width: 200 },
-    { field: 'lent_time', headerName: '대여일시', width: 250 },
+    { field: 'id', headerName: 'ID', width: 130, headerCheckboxSelection: true, checkboxSelection: true, headerClass:'tableHeader' },
+    { field: 'goods_name', headerName: '물품명', width: 200, headerClass:'tableHeader' },
+    { field: 'goods_NO', headerName: '물품번호', width: 200, headerClass:'tableHeader' },
+    { field: 'lent_days', headerName: '대여가능일수', width: 200, headerClass:'tableHeader' },
+    { field: 'lent_state', headerName: '대여상태', width: 200, headerClass:'tableHeader' },
+    { field: 'lent_time', headerName: '대여일시', width: 250, headerClass:'tableHeader' },
   ];
 
   const rowData = [
@@ -51,6 +52,11 @@ export default function MainUser() {
     {id: "2", goods_name: "보조베터리", goods_NO: 1, lent_days: "5시간", lent_state: "대여중", lent_time: "2019년 4월 12일 15:00"},
     {id: "3", goods_name: "공학계산기", goods_NO: 22, lent_days: "4분", lent_state: "반납대기", lent_time: "2021년 11월 7일 20:43"}
   ]
+
+  axios.get('http://localhost:3000/')
+  .then( (Response) => {console.log(Response.data)} )
+  .catch( (error) => { })
+
     
   return(
       <>
@@ -76,6 +82,7 @@ export default function MainUser() {
               detail="위 내용이 맞습니다." 
               closeModal={closeLentModal}/>  
           </Modal>
+          <button className="viewBtn" onClick={ () => onClickView() }>조회</button>
           <div style={{width: '75rem', margin: '10px auto'}}>
             <div className="ag-theme-balham" style={{height: '500px'}}>
               <AgGridReact
