@@ -309,7 +309,12 @@
   font-size: 1.0rem;
   background-color: powderblue;
 }
+
+
+
+.TxtFDiv{
+  display: block;
+}
 .TxtF{
-  border: 1px solid gray;
-  margin: 0.5rem 5rem;
+  margin: 0.5rem;
 }

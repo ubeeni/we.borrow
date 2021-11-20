@@ -1,14 +1,12 @@
 import React, {useState} from "react";
 import Modal from "react-modal";
 import Header from "../component/header";
-import Input from "../component/input";
-import ReturnInput from "../component/returnInput";
 import { AgGridReact } from "ag-grid-react";
 import axios from "axios";
+import { TextField } from "@mui/material";
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import { TextField } from "../../../Induction/node_modules/@material-ui/core";
 
 
 export default function Main() {
@@ -16,17 +14,20 @@ export default function Main() {
   const [registerOpen, setRegisterOpen] = React.useState(false)
   const [deleteOpen, setdeleteOpen] = React.useState(false)
   const [returnOpen, setReturnOpen] = React.useState(false)
-  const [gridApi,setGridApi] = useState();
-  const [colimnApi,setColumnApi] = useState();
-
-  const [goodsName, setGoodsName] = React.useState('')
-  const [goodsNO, setGoodsNO] = React.useState('')
-  const [rentDays, setRentDay] = React.useState('')
+  const [gridApi, setGridApi] = useState();
+  const [columnApi, setColumnApi] = useState();
+  
+  const [prodId, setProdId] = React.useState('')
+  const [prodName, setProdName] = React.useState('')
+  const [prodNumber, setProdNumber] = React.useState('')
+  const [rentalDay, setRentDay] = React.useState('')
+  //const [selectValue, setSelectValue] = React.useState('')
 
   const openRegisterModal = () => {setRegisterOpen(true);}
   const openDeleteModal = () => {setdeleteOpen(true);}
   const openReturnModal = () => {setReturnOpen(true);}
 
+  const onClickRegister = () => {openRegisterModal(); }
   const onClickDelete = () => {openDeleteModal(); }
   const onClickReturn = () => {openReturnModal();}
 
@@ -39,12 +40,16 @@ export default function Main() {
     setColumnApi(params.columnApi);
   }
 
+  const onProdIdHandler = (event) => {
+    setProdId(event.currentTarget.value)
+  }
+
   const onNameHandler = (event) => {
-    setGoodsName(event.currentTarget.value)
+    setProdName(event.currentTarget.value)
   }
 
   const onNumHandler = (event) => {
-    setGoodsNO(event.currentTarget.value)
+    setProdNumber(event.currentTarget.value)
   }
 
   const onDayHandler = (event) => {
@@ -79,34 +84,57 @@ export default function Main() {
   };
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 150, headerClass:'tableHeader', headerCheckboxSelection: true, checkboxSelection: true },
-    { field: 'goods_name', headerName: '물품명', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
-    { field: 'goods_NO', headerName: '물품번호', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
-    { field: 'lent_days', headerName: '대여가능일수', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
-    { field: 'lent_state', headerName: '대여상태', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
-    { field: 'lent_time', headerName: '대여일시', width: 250, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} }
+    { field: 'prodId', headerName: 'ID', width: 150, headerClass:'tableHeader', headerCheckboxSelection: true, checkboxSelection: true },
+    { field: 'prodName', headerName: '물품명', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
+    { field: 'prodNumber', headerName: '물품번호', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
+    { field: 'rentalDay', headerName: '대여가능일수', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
+    { field: 'state', headerName: '대여상태', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
+    { field: 'rentalDate', headerName: '대여일시', width: 250, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} }
   ];
 
-  const [rowData, setRows] = React.useState([
-    {id: "1", goods_name: "우산", goods_NO: 3, rent_days: "3일", rent_state: "대여가능", rent_time: null},
-    {id: "2", goods_name: "보조베터리", goods_NO: 1, rent_days: "5시간", rent_state: "대여중", rent_time: "2019년 4월 12일 15:00"},
-    {id: "3", goods_name: "공학계산기", goods_NO: 62, rent_days: "4분", rent_state: "반납대기", rent_time: "2021년 11월 7일 20:43"},
-    {id: "4", goods_name: "김유빈", goods_NO: 22, rent_days: "365일", rent_state: "대여중", rent_time: "2000년 4월 12일"}
-  ]);
-   
-  const onClickRegister = () => {
-    openRegisterModal();
+  const [rowData, setRows] = React.useState([]);
 
+  const getSelectedRowData = () => {
+    //setSelectValue(gridApi.getSelectedRows()[0].prodId, gridApi.getSelectedRows()[0].prodName, gridApi.getSelectedRows()[0].prodNumber, gridApi.getSelectedRows()[0].rentalDay);
+    // const data = {
+    //   prodId: gridApi.getSelectedRows()[0].prodId,
+    //   prodName: gridApi.getSelectedRows()[0].prodName,
+    //   prodNumber: gridApi.getSelectedRows()[0].prodNumber,
+    //   rentalDay: gridApi.getSelectedRows()[0].rentalDay
+    // }
+    setProdId(gridApi.getSelectedRows()[0].prodId)
+    setProdName(gridApi.getSelectedRows()[0].prodName)
+    setProdNumber(gridApi.getSelectedRows()[0].prodNumber)
+    setRentDay(gridApi.getSelectedRows()[0].rentalDay)
+  };
+
+  const Register = () => {
+    //if checkbox가 체크되었다면
     axios.post('http://localhost:4000/rental/insert', {
-      prodName: goodsName,
-      prodNumber: goodsNO,
-      Day: rentDays
+      prodName: prodName,
+      prodNumber: prodNumber,
+      Day: rentalDay
     })
-        // .then((Response)=>{
-        //     console.log(Response.data[0].checkAdmin)
-        // })
-        // .catch((Error)=>{console.log(Error)})
-    
+
+    return alert('등록되었습니다:)');
+  }
+
+  const Delete = () => {
+    //if checkbox가 체크되었다면
+    axios.post('http://localhost:4000/rental/delete', {
+      id: prodId
+    })
+
+    return alert('삭제되었습니다:)');
+  }
+
+  const Return = () => {
+    //if checkbox가 체크되었다면
+    axios.post('http://localhost:4000/rental/trental', {
+      num: prodNumber
+    })
+
+    return alert('반납되었습니다:)');
   }
 
   const onClickView = () => {
@@ -116,8 +144,12 @@ export default function Main() {
             console.log(Response.data)
         })
         .catch((Error)=>{console.log(Error)})
-  } 
 
+    setProdId('')
+    setProdName('')
+    setProdNumber('')
+    setRentDay('')
+  } 
 
   
   return(
@@ -140,30 +172,72 @@ export default function Main() {
             isOpen={returnOpen}
             >
               <div className="TxtFDiv">
-              <div className="TxtF">{goodsName}</div>
-              <div className="TxtF">{goodsNO}</div>
-              <div className="TxtF">{rentDays}</div>
-              <input
-              className="detailsCheck"
-              type="checkbox"/>진짜 삭제 할 거야..?
-              <button onClick={closeDeleteModal}>삭제</button>
-              <button onClick={closeDeleteModal}>닫기</button>
+                <TextField 
+                  className="TxtF"
+                  label="id"
+                  inputProps={{ readOnly: true, }}
+                  value={prodId}
+                  />
+                <TextField 
+                  className="TxtF"
+                  label="물품명"
+                  inputProps={{ readOnly: true, }}
+                  value={prodName}
+                  />
+                <TextField 
+                  className="TxtF"                
+                  label="물품번호"
+                  inputProps={{ readOnly: true, }}
+                  value={prodNumber}
+                  onChange={onNumHandler}/>
+                <TextField 
+                  className="TxtF"
+                  label="대여일수"
+                  inputProps={{ readOnly: true, }}
+                  value={rentalDay}
+                  />
+                <input
+                className="detailsCheck"
+                type="checkbox"/>반납하시겠습니까?
+                <button onClick={Return}>반납</button>
+                <button onClick={closeReturnModal}>닫기</button>
             </div>
           </Modal>
-          <button className="deleteBtn" onClick={ () => onClickSave() }>삭제</button>
+          <button className="deleteBtn" onClick={ () => onClickDelete() }>삭제</button>
           <Modal
             id="adminDeleteModal"
             style={customBoxStyles}
             isOpen={deleteOpen}
             >
             <div className="TxtFDiv">
-              <div className="TxtF">{goodsName}</div>
-              <div className="TxtF">{goodsNO}</div>
-              <div className="TxtF">{rentDays}</div>
+              <TextField 
+                className="TxtF"
+                label="id"
+                inputProps={{ readOnly: true, }}
+                value={prodId}
+                onChange={onProdIdHandler}/>
+              <TextField 
+                className="TxtF"
+                label="물품명"
+                inputProps={{ readOnly: true, }}
+                value={prodName}
+                />
+              <TextField 
+                className="TxtF"
+                label="물품번호"
+                inputProps={{ readOnly: true, }}
+                value={prodNumber}
+                />
+              <TextField 
+                className="TxtF"
+                label="대여일수"
+                inputProps={{ readOnly: true, }}
+                value={rentalDay}
+                />
               <input
               className="detailsCheck"
               type="checkbox"/>진짜 삭제 할 거야..?
-              <button onClick={closeDeleteModal}>삭제</button>
+              <button onClick={Delete}>삭제</button>
               <button onClick={closeDeleteModal}>닫기</button>
             </div>
           </Modal>
@@ -178,26 +252,26 @@ export default function Main() {
               <input
                 className="RegisterInput"
                 type="text"
-                value={goodsName}
+                value={prodName}
                 placeholder="물품명"
                 onChange={onNameHandler}/>
                 <input
                   className="RegisterInput"
                   type="text"
-                  value={goodsNO}
+                  value={prodNumber}
                   placeholder="물품번호"
                   onChange={onNumHandler}/>
                 <input
                   className="RegisterInput"
                   type="text"
-                  value={rentDays}
+                  value={rentalDay}
                   placeholder="대여가능일수"
                   onChange={onDayHandler}/>
                 <input
                   className="detailsCheck"
                   type="checkbox"/>
               </div>
-              <button onClick={onClickRegister}>등록</button>
+              <button onClick={Register}>등록</button>
               <button onClick={closeRegisterModal}>닫기</button>
           </Modal>
           <button className="viewBtn" onClick={ () => onClickView() }>조회</button>
@@ -206,8 +280,9 @@ export default function Main() {
               <AgGridReact
                 rowData={rowData}
                 columnDefs={columns}
-                onCellClicked={() => onClickCell()}
+                rowSelection={'single'}
                 onGridReady={onGridReady}
+                onSelectionChanged={getSelectedRowData}
                 suppressMovableColumns={'true'}
               />
             </div>
