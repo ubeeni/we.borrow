@@ -78,8 +78,9 @@ app.post("/rental/insert", (request, response) => {
   const name = request.body.prodName //물품 이름
   const num = request.body.prodNumber //물품 번호
   const day = request.body.Day //물품 대여 가능 일수
+  const borrow="대여가능"
   //console.log('INSERT INTO prod(prodName,prodNumber,rentalDay) VALUES (?,?,?)',[name, num,day])
-  db.query('INSERT INTO prod(prodName,prodNumber,rentalDay) VALUES (?,?,?)',[name, num,day], (err,rows) => {
+  db.query('INSERT INTO prod(prodName,prodNumber,rentalDay,state) VALUES (?,?,?,?)',[name, num, day, borrow], (err,rows) => {
     if(err) throw err;
   });
 })
@@ -122,8 +123,9 @@ app.post("/rental/startrental", (request, response) => {
 //물품 반납
 app.post("/rental/trental", (request, response) => {
   const num = request.body.num //물품 번호
+  const borrow="대여가능"
 
-  db.query('UPDATE prod SET rentalUser=?,rentalDate=?,returnDate=?,state=? WHERE prodId=? ',[null,null,null,null,num], (err,rows) => {
+  db.query('UPDATE prod SET rentalUser=?,rentalDate=?,returnDate=?,state=? WHERE prodId=? ',[null,null,null,borrow,num], (err,rows) => {
     if(err) throw err;
     //console.log(rows)
     //response.send(rows);
@@ -131,8 +133,8 @@ app.post("/rental/trental", (request, response) => {
 })
   
 //물품 대여 리스트 출력
-app.post("/api/printprod", (request, response) => {
-  db.query('SELECT * FROM prod', (err,rows) => {
+app.get("/api/printprod", (request, response) => {
+  db.query('SELECT prodId, prodName, prodNumber, rentalDay, state, rentalDate FROM prod', (err,rows) => {
     if(err) throw err;
     if(Object.keys(rows).length === 0) {
       response.send(null);
