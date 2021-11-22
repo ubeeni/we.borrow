@@ -21,6 +21,7 @@ export default function Main() {
   const [prodName, setProdName] = React.useState('')
   const [prodNumber, setProdNumber] = React.useState('')
   const [rentalDay, setRentDay] = React.useState('')
+  const [searchName, setSearchName] = React.useState('')
   //const [selectValue, setSelectValue] = React.useState('')
 
   const openRegisterModal = () => {setRegisterOpen(true);}
@@ -39,7 +40,11 @@ export default function Main() {
     setGridApi(params.api);
     setColumnApi(params.columnApi);
   }
-
+  
+  const onSearchHandler = (event) => {
+    setSearchName(event.currentTarget.value)
+  }
+  
   const onProdIdHandler = (event) => {
     setProdId(event.currentTarget.value)
   }
@@ -55,19 +60,6 @@ export default function Main() {
   const onDayHandler = (event) => {
     setRentDay(event.currentTarget.value)
   }
-
-  // const onClickSave = () => {
-  //   //setSelectValue(gridApi.getSelectedRows()[0].goods_name, gridApi.getSelectedRows()[0].goods_NO, gridApi.getSelectedRows()[0].lent_days);
-  //   const data = {
-  //     goods_name: gridApi.getSelectedRows()[0].goods_name,
-  //     goods_NO: gridApi.getSelectedRows()[0].goods_NO,
-  //     lent_days: gridApi.getSelectedRows()[0].lent_days
-  //   }
-  //   setGoodName(gridApi.getSelectedRows()[0].goods_name)
-  //   setGoodNO(gridApi.getSelectedRows()[0].goods_NO)
-  //   setLentDay(gridApi.getSelectedRows()[0].lent_days)
-  //   openDeleteModal(); 
-  // }
 
   const customBoxStyles = {
     content: {
@@ -108,6 +100,16 @@ export default function Main() {
     setRentDay(gridApi.getSelectedRows()[0].rentalDay)
   };
 
+  const Search = () => {
+    axios.post('http://localhost:4000/api/search', {
+      prodName: searchName
+    }).then((Response)=>{
+          setRows(Response.data)
+          console.log(Response.data)
+      })
+      .catch((Error)=>{console.log(Error)})
+  }
+
   const Register = () => {
     //if checkbox가 체크되었다면
     axios.post('http://localhost:4000/rental/insert', {
@@ -131,7 +133,7 @@ export default function Main() {
   const Return = () => {
     //if checkbox가 체크되었다면
     axios.post('http://localhost:4000/rental/trental', {
-      num: prodNumber
+      num: prodId
     })
 
     return alert('반납되었습니다:)');
@@ -141,7 +143,7 @@ export default function Main() {
     axios.get('http://localhost:4000/api/printprod')
         .then((Response)=>{
             setRows(Response.data)
-            console.log(Response.data)
+            //console.log(Response.data)
         })
         .catch((Error)=>{console.log(Error)})
 
@@ -162,8 +164,10 @@ export default function Main() {
               className="searchInput"
               type="text"
               placeholder="물품명"
+              value={searchName}
+              onChange={onSearchHandler}
             ></input>
-            <button className="searchBtn">검색</button>
+            <button className="searchBtn" onClick={ () => Search()}>검색</button>
           </div>
           <button className="returnBtn" onClick={ () => onClickReturn() }>반납</button>
           <Modal
@@ -177,12 +181,14 @@ export default function Main() {
                   label="id"
                   inputProps={{ readOnly: true, }}
                   value={prodId}
+                  onChange={onProdIdHandler}
                   />
                 <TextField 
                   className="TxtF"
                   label="물품명"
                   inputProps={{ readOnly: true, }}
                   value={prodName}
+                  onChange={onNameHandler}
                   />
                 <TextField 
                   className="TxtF"                
@@ -195,6 +201,7 @@ export default function Main() {
                   label="대여일수"
                   inputProps={{ readOnly: true, }}
                   value={rentalDay}
+                  onChange={onDayHandler}
                   />
                 <input
                 className="detailsCheck"
@@ -221,18 +228,21 @@ export default function Main() {
                 label="물품명"
                 inputProps={{ readOnly: true, }}
                 value={prodName}
+                onChange={onNameHandler}
                 />
               <TextField 
                 className="TxtF"
                 label="물품번호"
                 inputProps={{ readOnly: true, }}
                 value={prodNumber}
+                onChange={onNumHandler}
                 />
               <TextField 
                 className="TxtF"
                 label="대여일수"
                 inputProps={{ readOnly: true, }}
                 value={rentalDay}
+                onChange={onDayHandler}
                 />
               <input
               className="detailsCheck"
