@@ -22,6 +22,9 @@ export default function Main() {
   const [prodNumber, setProdNumber] = React.useState('')
   const [rentalDay, setRentDay] = React.useState('')
   const [searchName, setSearchName] = React.useState('')
+  const [registerChecked, setRegisterChecked] = React.useState(false)
+  const [deleteChecked, setDeleteChecked] = React.useState(false)
+  const [returnChecked, setReturnChecked] = React.useState(false)
   //const [selectValue, setSelectValue] = React.useState('')
 
   const openRegisterModal = () => {setRegisterOpen(true);}
@@ -59,6 +62,18 @@ export default function Main() {
 
   const onDayHandler = (event) => {
     setRentDay(event.currentTarget.value)
+  }
+
+  const onRegisterCheckedHandler = (event) => {
+    setRegisterChecked(event.target.checked)
+  }
+
+  const onDeleteCheckedHandler = (event) => {
+    setDeleteChecked(event.target.checked)
+  }
+
+  const onReturnCheckedHandler = (event) => {
+    setReturnChecked(event.target.checked)
   }
 
   const customBoxStyles = {
@@ -111,32 +126,59 @@ export default function Main() {
   }
 
   const Register = () => {
-    //if checkbox가 체크되었다면
-    axios.post('http://localhost:4000/rental/insert', {
-      prodName: prodName,
-      prodNumber: prodNumber,
-      Day: rentalDay
-    })
+    if(!prodName || !prodNumber || !rentalDay) {
+      return alert('정보를 빠짐없이 입력해주세요!');
+    }
+    else {
+      if(registerChecked==true) {
+        axios.post('http://localhost:4000/rental/insert', {
+        prodName: prodName,
+        prodNumber: prodNumber,
+        Day: rentalDay
+        })
+      return alert('등록되었습니다:)');
+      }
+      else {
+        return alert('내용을 확인하고 체크해주세요!');
+      }
+    }
 
-    return alert('등록되었습니다:)');
   }
+    
 
   const Delete = () => {
-    //if checkbox가 체크되었다면
-    axios.post('http://localhost:4000/rental/delete', {
-      id: prodId
-    })
-
-    return alert('삭제되었습니다:)');
+    if(!prodId) {
+      return alert('삭제할 물품을 선택해주세요!');
+    }
+    else {
+      if(deleteChecked==true) {
+        axios.post('http://localhost:4000/rental/delete', {
+        id: prodId
+        })
+        return alert('삭제되었습니다:)');
+      }
+      else {
+        return alert('내용을 확인하고 체크해주세요!');
+      }
+    } 
+    
   }
 
   const Return = () => {
-    //if checkbox가 체크되었다면
-    axios.post('http://localhost:4000/rental/trental', {
-      num: prodId
-    })
-
-    return alert('반납되었습니다:)');
+    if(!prodId) {
+      return alert('반납할 물품을 선택해주세요!');
+      }
+    else {
+      if(returnChecked==true) {
+        axios.post('http://localhost:4000/rental/trental', {
+          num: prodId
+        })
+        return alert('반납되었습니다:)');
+      }  
+      else {
+        return alert('내용을 확인하고 체크해주세요!');
+      }
+    }
   }
 
   const onClickView = () => {
@@ -147,10 +189,13 @@ export default function Main() {
         })
         .catch((Error)=>{console.log(Error)})
 
-    setProdId('')
-    setProdName('')
-    setProdNumber('')
-    setRentDay('')
+    setProdId('');
+    setProdName('');
+    setProdNumber('');
+    setRentDay('');
+    setRegisterChecked(false);
+    setDeleteChecked(false);
+    setReturnChecked(false);
   } 
 
   
@@ -205,7 +250,10 @@ export default function Main() {
                   />
                 <input
                 className="detailsCheck"
-                type="checkbox"/>반납하시겠습니까?
+                type="checkbox"
+                checked={returnChecked}
+                onChange={onReturnCheckedHandler}
+                />반납하시겠습니까?
                 <button onClick={Return}>반납</button>
                 <button onClick={closeReturnModal}>닫기</button>
             </div>
@@ -246,7 +294,10 @@ export default function Main() {
                 />
               <input
               className="detailsCheck"
-              type="checkbox"/>진짜 삭제 할 거야..?
+              type="checkbox"
+              checked={deleteChecked}
+              onChange={onDeleteCheckedHandler}
+              />삭제하시겠습니까?
               <button onClick={Delete}>삭제</button>
               <button onClick={closeDeleteModal}>닫기</button>
             </div>
@@ -279,7 +330,10 @@ export default function Main() {
                   onChange={onDayHandler}/>
                 <input
                   className="detailsCheck"
-                  type="checkbox"/>
+                  type="checkbox"
+                  checked={registerChecked}
+                  onChange={onRegisterCheckedHandler}
+                  />등록하시겠습니까?
               </div>
               <button onClick={Register}>등록</button>
               <button onClick={closeRegisterModal}>닫기</button>

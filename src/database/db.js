@@ -67,7 +67,7 @@ app.post("/login/register", (request, response) => {
   const pw = request.body.pw 
   const checkadmin = request.body.checkadmin
 
-  console.log('INSERT INTO login VALUES(?,?,?)',[id, pw, checkadmin])
+  //console.log('INSERT INTO login VALUES(?,?,?)',[id, pw, checkadmin])
   db.query('INSERT INTO login VALUES(?,?,?)',[id, pw, checkadmin], (err,rows) => {
     if(err) throw err;
   });
@@ -104,21 +104,26 @@ app.post("/rental/startrental", (request, response) => {
   const date=new Date();
   const year=date.getFullYear();
   const month=date.getMonth()+1%13;
-  const day=date.getDate()+1%32;
+  const day=date.getDate()%31;
   const nowdate=year+"-"+month+"-"+day
   var returndate="";
-  db.query('SELECT rentalDay FROM prod where prodId=?',[num], (err,rows) => {
+  db.query('SELECT rentalDay, state FROM prod where prodId=?',[num], (err,rows) => {
     if(err) throw err;
-    returndate=rows;
-    });
+    //console.log(rows[0].state);
+    
+    if(rows[0].state=="대여가능") {
+      db.query('UPDATE prod SET rentalUser=?,state=?,rentalDate=? WHERE prodId=? ',[id,borrow,nowdate,num], (err,rows) => {
+        if(err) throw err;
+        });
+      response.send(`${rows[0].state}`);
+    }
+    else {
+      response.send(`${rows[0].state}`);
+    }
 
-    console.log(nowdate);
+    console.log(`${rows[0].state}`);
+  });
 
-  db.query('UPDATE prod SET rentalUser=?,state=?,rentalDate=? WHERE prodId=? ',[id,borrow,nowdate,num], (err,rows) => {
-    if(err) throw err;
-    //console.log(rows)
-    //response.send(rows);
-    });
 })
 
 //물품 반납
@@ -157,7 +162,7 @@ app.post("/api/temp", (request, response) => {
 app.get("/api/tempUser", (request, response) => {
   db.query('SELECT * FROM temp', (err,rows) => {
     console.log(Object.keys(rows).length)
-    console.log(rows)
+    //console.log(rows)
     if(err) throw err;
     if(Object.keys(rows).length === 0) {
       response.send(null);
