@@ -98,20 +98,21 @@ app.post("/rental/delete", (request, response) => {
 //returndate 값 넣어주는 거 필요
 
 app.post("/rental/startrental", (request, response) => {
-  const id = request.body.id //빌릴 사용자의 아이디
-  const num = request.body.num //물품 번호
+  const id = request.body.id //사용자 아이디
+  const num = request.body.num //물품 아이디
   const borrow="대여중"
   const date=new Date();
   const year=date.getFullYear();
   const month=date.getMonth()+1%13;
   const day=date.getDate()+1%32;
   const nowdate=year+"-"+month+"-"+day
-  var returndate;
-  db.query('SELECT rentalDay FROM prod where prodId=?',[id], (err,rows) => {
+  var returndate="";
+  db.query('SELECT rentalDay FROM prod where prodId=?',[num], (err,rows) => {
     if(err) throw err;
     returndate=rows;
     });
 
+    console.log(nowdate);
 
   db.query('UPDATE prod SET rentalUser=?,state=?,rentalDate=? WHERE prodId=? ',[id,borrow,nowdate,num], (err,rows) => {
     if(err) throw err;
@@ -122,9 +123,10 @@ app.post("/rental/startrental", (request, response) => {
 
 //물품 반납
 app.post("/rental/trental", (request, response) => {
-  const num = request.body.num //물품 번호
+  const num = request.body.num //물품 아이디
   const borrow="대여가능"
-
+  //console.log(num)
+  //const q = `UPDATE prod SET rentalUser=null,rentalDate=null,returnDate=null,state="${borrow}" WHERE prodId=${num}`
   db.query('UPDATE prod SET rentalUser=?,rentalDate=?,returnDate=?,state=? WHERE prodId=? ',[null,null,null,borrow,num], (err,rows) => {
     if(err) throw err;
     //console.log(rows)
@@ -134,7 +136,28 @@ app.post("/rental/trental", (request, response) => {
   
 //물품 대여 리스트 출력
 app.get("/api/printprod", (request, response) => {
-  db.query('SELECT prodId, prodName, prodNumber, rentalDay, state, rentalDate FROM prod', (err,rows) => {
+  db.query('SELECT prodId, prodName, prodNumber, rentalDay, state, Date_format(rentalDate, "%Y-%m-%d") as rentalDate FROM prod', (err,rows) => {
+    if(err) throw err;
+    if(Object.keys(rows).length === 0) {
+      response.send(null);
+    } else {
+      response.send(rows);
+      //console.log(rows)
+    }
+  });
+})
+
+app.post("/api/temp", (request, response) => {
+  const userId = request.body.userId
+  db.query('UPDATE temp SET userId = ? ',[userId], (err,rows) => {
+    if(err) throw err;
+    });
+})
+
+app.get("/api/tempUser", (request, response) => {
+  db.query('SELECT * FROM temp', (err,rows) => {
+    console.log(Object.keys(rows).length)
+    console.log(rows)
     if(err) throw err;
     if(Object.keys(rows).length === 0) {
       response.send(null);
@@ -142,6 +165,22 @@ app.get("/api/printprod", (request, response) => {
       response.send(rows);
     }
   });
+})
+
+// 검색
+app.post("/api/search", (request, response) => {
+  const prodName = request.body.prodName
+  const q = `SELECT prodId, prodName, prodNumber, rentalDay, state, Date_format(rentalDate, "%Y-%m-%d") as rentalDate FROM prod WHERE prodName LIKE "%${prodName}%"`
+  //'SELECT prodId, prodName, prodNumber, rentalDay, state, Date_format(rentalDate, "%Y-%m-%d") as rentalDate FROM prod WHERE prodName LIKE "%?%"', [prodName]
+  db.query(q, (err,rows) => {
+    if(err) throw err;
+    if(Object.keys(rows).length === 0) {
+      response.send(null);
+    } else {
+      response.send(rows);
+      //console.log(rows)
+    }
+    });
 })
 
   app.listen(port, () => {console.log(`Listening on port ${port}`)});

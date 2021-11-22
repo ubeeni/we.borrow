@@ -31,41 +31,44 @@ const StyledLogin = styled.div`
   }
 `
 
-
 export default function LoginBox() {
-  
-const [id, setId] = useState('');
-const [pw, setPw] = useState('');
 
-const login = () => {
-  axios.post('http://localhost:4000/api/login', {
-    id: id,
-    pw: pw
-  })
-      .then((Response)=>{
-          if(Response.data[0].id==id && Response.data[0].password==pw) {
-            if(Response.data[0].checkadmin==0) {
-              window.location.href="/MainUser"
+  const [id, setId] = useState(''); 
+  const [pw, setPw] = useState('');
+  
+  const onIdHandler = (event) => {
+    setId(event.currentTarget.value)
+  }
+
+  const onPwHandler = (event) => {
+    setPw(event.currentTarget.value)
+  }
+
+  const login = () => {
+    axios.post('http://localhost:4000/api/login', {
+      id: id,
+      pw: pw
+    })
+        .then((Response)=>{
+            if(Response.data[0].id==id && Response.data[0].password==pw) {
+              if(Response.data[0].checkadmin==0) {
+                window.location.href="/MainUser"
+                axios.post('http://localhost:4000/api/temp', {
+                  userId: id
+                })
+              }
+              else {
+                window.location.href="/Main"
+              }
+              return id;
             }
             else {
-              window.location.href="/Main"
-            } 
-          }
-          else {
-            return alert('아이디 또는 비밀번호를 확인해주세요!')
-          }
-      })
-      .catch((Error)=>{console.log(Error)}) 
-  
-}
-
-const onIdHandler = (event) => {
-  setId(event.currentTarget.value)
-}
-
-const onPwHandler = (event) => {
-  setPw(event.currentTarget.value)
-}
+              return alert('아이디 또는 비밀번호를 확인해주세요!')
+            }
+        })
+        .catch((Error)=>{console.log(Error)}) 
+        
+  }
 
   return <>
     <StyledLogin>

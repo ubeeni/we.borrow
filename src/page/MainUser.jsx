@@ -1,27 +1,37 @@
 import React, {useState} from "react";
 import Modal from "react-modal";
 import Header from "../component/header";
-import Detail from "../component/detail";
 import { AgGridReact } from "ag-grid-react";
+import { TextField } from "@mui/material";
+import axios from "axios";
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import axios from "axios";
+
+
 
 export default function MainUser() {
 
-  const [lentOpen, setLentOpen] = React.useState(false)
+  const [rentOpen, setRentOpen] = React.useState(false)
+  const [searchName, setSearchName] = React.useState('')
+  const [userId, setUserId] = React.useState()
+  const [prodId, setProdId] = React.useState('')
+  const [prodName, setProdName] = React.useState('')
+  const [prodNumber, setProdNumber] = React.useState('')
+  const [rentalDay, setRentDay] = React.useState('')
+  const [gridApi, setGridApi] = useState();
+  const [columnApi, setColumnApi] = useState();
 
-  const openLentModal = () => {
-    setLentOpen(true);
+  const openRentModal = () => {
+    setRentOpen(true);
   }
 
-  const onClickLent = () => {
-    openLentModal();
+  const onClickRent = () => {
+    openRentModal();
   }
 
-  const closeLentModal = () => {
-    setLentOpen(false);
+  const closeRentModal = () => {
+    setRentOpen(false);
   } 
 
   const customBoxStyles = {
@@ -31,33 +41,100 @@ export default function MainUser() {
       right: 'auto',
       bottom: 'auto',
       marginRight: '-50%',
-      width: '35rem',
-      height: '30rem',
+      width: '20rem',
+      height: '26rem',
       textAlign: 'center',
       transform: 'translate(-50%, -50%)',
     },
   };
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 130, headerCheckboxSelection: true, checkboxSelection: true, headerClass:'tableHeader' },
-    { field: 'goods_name', headerName: '물품명', width: 200, headerClass:'tableHeader' },
-    { field: 'goods_NO', headerName: '물품번호', width: 200, headerClass:'tableHeader' },
-    { field: 'lent_days', headerName: '대여가능일수', width: 200, headerClass:'tableHeader' },
-    { field: 'lent_state', headerName: '대여상태', width: 200, headerClass:'tableHeader' },
-    { field: 'lent_time', headerName: '대여일시', width: 250, headerClass:'tableHeader' },
+    { field: 'prodId', headerName: 'ID', width: 150, headerClass:'tableHeader', headerCheckboxSelection: true, checkboxSelection: true },
+    { field: 'prodName', headerName: '물품명', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
+    { field: 'prodNumber', headerName: '물품번호', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
+    { field: 'rentalDay', headerName: '대여가능일수', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
+    { field: 'state', headerName: '대여상태', width: 200, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} },
+    { field: 'rentalDate', headerName: '대여일시', width: 250, headerClass:'tableHeader', cellClass:params => { return 'cellReturn';} }
   ];
 
-  const rowData = [
-    {id: "1", goods_name: "우산", goods_NO: 3, lent_days: "3일", lent_state: "대여가능", lent_time: null},
-    {id: "2", goods_name: "보조베터리", goods_NO: 1, lent_days: "5시간", lent_state: "대여중", lent_time: "2019년 4월 12일 15:00"},
-    {id: "3", goods_name: "공학계산기", goods_NO: 22, lent_days: "4분", lent_state: "반납대기", lent_time: "2021년 11월 7일 20:43"}
-  ]
+  const [rowData, setRows] = React.useState([]);
 
-  axios.get('http://localhost:3000/')
-  .then( (Response) => {console.log(Response.data)} )
-  .catch( (error) => { })
+  const onGridReady = (params) => {
+    setGridApi(params.api);
+    setColumnApi(params.columnApi);
+  }
+
+  const getSelectedRowData = () => {
+    setProdId(gridApi.getSelectedRows()[0].prodId)
+    setProdName(gridApi.getSelectedRows()[0].prodName)
+    setProdNumber(gridApi.getSelectedRows()[0].prodNumber)
+    setRentDay(gridApi.getSelectedRows()[0].rentalDay)
+  };
+
+  const onSearchHandler = (event) => {
+    setSearchName(event.currentTarget.value)
+  }
+
+  const onProdIdHandler = (event) => {
+    setProdId(event.currentTarget.value)
+  }
+
+  const onNameHandler = (event) => {
+    setProdName(event.currentTarget.value)
+  }
+
+  const onNumHandler = (event) => {
+    setProdNumber(event.currentTarget.value)
+  }
+
+  const onDayHandler = (event) => {
+    setRentDay(event.currentTarget.value)
+  }
+
+  const Search = () => {
+    axios.post('http://localhost:4000/api/search', {
+      prodName: searchName
+    }).then((Response)=>{
+          setRows(Response.data)
+          console.log(Response.data)
+      })
+      .catch((Error)=>{console.log(Error)})
+  }
+
+  const Rent = () => {
+    //if checkbox가 체크되었다면
+    axios.get('http://localhost:4000/api/tempUser')
+        .then((Response)=>{
+            setUserId(Response.data[0].userId)
+            console.log(Response.data[0].userId)
+            console.log(userId)
+            axios.post('http://localhost:4000/rental/startrental', {
+              id: userId,
+              num: prodId
+            })
+        })
+        .catch((Error)=>{console.log(Error)})
 
     
+
+    return alert('대여되었습니다:)\n대여물품 수령은 학생회관으로 와주세요!');
+  }
+
+  const onClickView = () => {
+    axios.get('http://localhost:4000/api/printprod')
+        .then((Response)=>{
+            setRows(Response.data)
+            //console.log(Response.data)
+        })
+        .catch((Error)=>{console.log(Error)})
+
+    setProdId('')
+    setProdName('')
+    setProdNumber('')
+    setRentDay('')
+    
+  }  
+
   return(
       <>
         <Header></Header>
@@ -68,28 +145,60 @@ export default function MainUser() {
               className="searchInput"
               type="text"
               placeholder="물품명"
+              value={searchName}
+              onChange={onSearchHandler}
             ></input>
-            <button className="searchBtn">검색</button>
+            <button className="searchBtn" onClick={ () => Search() }>검색</button>
           </div>
-          <button className="lentBtn" onClick={ () => onClickLent() }>대여</button>
+          <button className="lentBtn" onClick={ () => onClickRent() }>대여</button>
           <Modal
             id="userLentModal"
             style={customBoxStyles}
-            isOpen={lentOpen}
+            isOpen={rentOpen}
             >
-            <Detail 
-              title="대여하기" 
-              detail="위 내용이 맞습니다." 
-              closeModal={closeLentModal}/>  
+              <TextField 
+                  className="TxtF"
+                  label="id"
+                  inputProps={{ readOnly: true, }}
+                  value={prodId}
+                  onChange={onProdIdHandler}
+                  />
+                <TextField 
+                  className="TxtF"
+                  label="물품명"
+                  inputProps={{ readOnly: true, }}
+                  value={prodName}
+                  onChange={onNameHandler}
+                  />
+                <TextField 
+                  className="TxtF"                
+                  label="물품번호"
+                  inputProps={{ readOnly: true, }}
+                  value={prodNumber}
+                  onChange={onNumHandler}/>
+                <TextField 
+                  className="TxtF"
+                  label="대여일수"
+                  inputProps={{ readOnly: true, }}
+                  value={rentalDay}
+                  onChange={onDayHandler}
+                  />
+                <input
+                className="detailsCheck"
+                type="checkbox"/>대여하시겠습니까?
+                <button onClick={Rent}>대여</button>
+                <button onClick={closeRentModal}>닫기</button>
           </Modal>
           <button className="viewBtn" onClick={ () => onClickView() }>조회</button>
           <div style={{width: '75rem', margin: '10px auto'}}>
             <div className="ag-theme-balham" style={{height: '500px'}}>
               <AgGridReact
-                rowData={rowData}
-                columnDefs={columns}
-                suppressMovableColumns={'true'}
-              />
+               rowData={rowData}
+               columnDefs={columns}
+               rowSelection={'single'}
+               onGridReady={onGridReady}
+               onSelectionChanged={getSelectedRowData}
+               suppressMovableColumns={'true'}/>
             </div>
           </div>
           
