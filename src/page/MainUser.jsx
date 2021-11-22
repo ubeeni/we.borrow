@@ -12,13 +12,14 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 export default function MainUser() {
 
-  const [rentOpen, setRentOpen] = React.useState(false)
-  const [searchName, setSearchName] = React.useState('')
-  const [userId, setUserId] = React.useState()
-  const [prodId, setProdId] = React.useState('')
-  const [prodName, setProdName] = React.useState('')
-  const [prodNumber, setProdNumber] = React.useState('')
-  const [rentalDay, setRentDay] = React.useState('')
+  const [rentOpen, setRentOpen] = React.useState(false);
+  const [searchName, setSearchName] = React.useState('');
+  const [userId, setUserId] = React.useState();
+  const [prodId, setProdId] = React.useState('');
+  const [prodName, setProdName] = React.useState('');
+  const [prodNumber, setProdNumber] = React.useState('');
+  const [rentalDay, setRentDay] = React.useState('');
+  const [checked, setChecked] = React.useState(false);
   const [gridApi, setGridApi] = useState();
   const [columnApi, setColumnApi] = useState();
 
@@ -91,6 +92,10 @@ export default function MainUser() {
     setRentDay(event.currentTarget.value)
   }
 
+  const onCheckedHandler = (event) => {
+    setChecked(event.target.checked)
+  }
+  
   const Search = () => {
     axios.post('http://localhost:4000/api/search', {
       prodName: searchName
@@ -102,22 +107,42 @@ export default function MainUser() {
   }
 
   const Rent = () => {
-    //if checkbox가 체크되었다면
-    axios.get('http://localhost:4000/api/tempUser')
-        .then((Response)=>{
-            setUserId(Response.data[0].userId)
-            console.log(Response.data[0].userId)
-            console.log(userId)
-            axios.post('http://localhost:4000/rental/startrental', {
-              id: userId,
-              num: prodId
+    if(!prodId) {
+      return alert('대여할 물품을 선택해주세요!')
+    }
+    else {
+      if(checked==true) {
+        axios.post('http://localhost:4000/rental/startrental', {
+          id: userId,
+          num: prodId
+          }).then((Response)=>{
+            console.log(Response.data);
+            if(Response.data=="대여중") {
+            //setRentState(0);
+            alert("대여중인 물품은 대여할 수 없습니다!");
+            }
+            else {
+            //setRentState(1);
+            alert("대여되었습니다:)\n대여물품 수령은 학생회관으로 와주세요!");
+            }
             })
-        })
-        .catch((Error)=>{console.log(Error)})
+        . catch((Error)=>{console.log(Error)})
+          // console.log(rentState);
+          // if(rentState) {
+          //   return alert("대여되었습니다:)\n대여물품 수령은 학생회관으로 와주세요!");
+          // }
+          // else {
+          //   return alert("대여중인 물품은 대여할 수 없습니다!");
+          // }
+         
+      }
+      else {
+        return alert('내용을 확인하고 체크해주세요!');
+      }
+    }
+
 
     
-
-    return alert('대여되었습니다:)\n대여물품 수령은 학생회관으로 와주세요!');
   }
 
   const onClickView = () => {
@@ -128,11 +153,18 @@ export default function MainUser() {
         })
         .catch((Error)=>{console.log(Error)})
 
-    setProdId('')
-    setProdName('')
-    setProdNumber('')
-    setRentDay('')
-    
+    axios.get('http://localhost:4000/api/tempUser')
+        .then((Response)=>{
+            setUserId(Response.data[0].userId)
+            console.log(userId);
+        })
+        .catch((Error)=>{console.log(Error)})    
+
+    setProdId('');
+    setProdName('');
+    setProdNumber('');
+    setRentDay('');
+    setChecked(false);
   }  
 
   return(
@@ -185,7 +217,10 @@ export default function MainUser() {
                   />
                 <input
                 className="detailsCheck"
-                type="checkbox"/>대여하시겠습니까?
+                type="checkbox"
+                checked={checked}
+                onChange={onCheckedHandler}
+                />대여하시겠습니까?
                 <button onClick={Rent}>대여</button>
                 <button onClick={closeRentModal}>닫기</button>
           </Modal>
