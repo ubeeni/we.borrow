@@ -117,8 +117,8 @@
   margin: -2% 0;
 }
 .signUpButton{
-  margin-top: 360px;
-  /* margin-top: 27% */
+  /* margin-top: 360px; */
+  margin-top: 27%;
   width: 80px;
   height: 27px;
   cursor: pointer;
@@ -145,10 +145,10 @@
 .joinText{
   float: left;
   font-size: small;
-  /* padding: 2.5% 3%;
-  margin: 5% 5%; */
-  padding: 10px 10px;
-  margin: 10px 15px;
+  padding: 2.5% 3%;
+  margin: 5% 5%;
+  /* padding: 10px 10px;
+  margin: 10px 15px; */
   border: slategrey solid 1px;
   border-radius: 5%;
 }
@@ -309,12 +309,43 @@
   font-size: 1.0rem;
   background-color: powderblue;
 }
-
-
-
 .TxtFDiv{
   display: block;
+  justify-content: center;
+  margin-left: 3.5rem;
+  margin-right: 3.5rem;
 }
 .TxtF{
+  margin-left: 3.5rem;
+  margin-right: 3.5rem;
+}
+.RegisterInput{
+  padding-left: 1rem;
+  height: 3rem;
+  margin-top: 2rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+.modalBtn{
+  display: inline-block;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  background-color: black;
+  color: #d4f3f8;
+  width: 5.5rem;
+  height: 2.0rem;
+  font-weight: bolder;
+  cursor: pointer;
+  padding: 0 1rem;
+  text-align: center;
   margin: 0.5rem;
+}
+.detailsCheckr{
+  margin-top: 1.5rem;
+  margin-bottom: 1.3rem;;
+}
+.detailsCheck{
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;;
 }

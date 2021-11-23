@@ -43,7 +43,7 @@ export default function MainUser() {
       bottom: 'auto',
       marginRight: '-50%',
       width: '20rem',
-      height: '26rem',
+      height: '30rem',
       textAlign: 'center',
       transform: 'translate(-50%, -50%)',
     },
@@ -188,41 +188,48 @@ export default function MainUser() {
             style={customBoxStyles}
             isOpen={rentOpen}
             >
-              <TextField 
-                  className="TxtF"
-                  label="id"
-                  inputProps={{ readOnly: true, }}
-                  value={prodId}
-                  onChange={onProdIdHandler}
-                  />
+              <h3>대여하기</h3>
+              <div className="TxtFDiv">
                 <TextField 
-                  className="TxtF"
-                  label="물품명"
-                  inputProps={{ readOnly: true, }}
-                  value={prodName}
-                  onChange={onNameHandler}
-                  />
-                <TextField 
-                  className="TxtF"                
-                  label="물품번호"
-                  inputProps={{ readOnly: true, }}
-                  value={prodNumber}
-                  onChange={onNumHandler}/>
-                <TextField 
-                  className="TxtF"
-                  label="대여일수"
-                  inputProps={{ readOnly: true, }}
-                  value={rentalDay}
-                  onChange={onDayHandler}
-                  />
-                <input
-                className="detailsCheck"
-                type="checkbox"
-                checked={checked}
-                onChange={onCheckedHandler}
-                />대여하시겠습니까?
-                <button onClick={Rent}>대여</button>
-                <button onClick={closeRentModal}>닫기</button>
+                    className="TxtF"
+                    label="id"
+                    inputProps={{ readOnly: true, }}
+                    value={prodId}
+                    margin="normal"
+                    onChange={onProdIdHandler}
+                    />
+                  <TextField 
+                    className="TxtF"
+                    label="물품명"
+                    inputProps={{ readOnly: true, }}
+                    value={prodName}
+                    margin="normal"
+                    onChange={onNameHandler}
+                    />
+                  <TextField 
+                    className="TxtF"                
+                    label="물품번호"
+                    inputProps={{ readOnly: true, }}
+                    value={prodNumber}
+                    margin="normal"
+                    onChange={onNumHandler}/>
+                  <TextField 
+                    className="TxtF"
+                    label="대여일수"
+                    inputProps={{ readOnly: true, }}
+                    value={rentalDay}
+                    margin="normal"
+                    onChange={onDayHandler}
+                    />
+                  <input
+                  className="detailsCheck"
+                  type="checkbox"
+                  checked={checked}
+                  onChange={onCheckedHandler}
+                  />대여하시겠습니까?
+                  <button className="modalBtn" onClick={Rent}>대여</button>
+                  <button className="modalBtn" onClick={closeRentModal}>닫기</button>
+              </div>
           </Modal>
           <button className="viewBtn" onClick={ () => onClickView() }>조회</button>
           <div style={{width: '75rem', margin: '10px auto'}}>

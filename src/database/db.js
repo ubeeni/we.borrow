@@ -14,7 +14,7 @@ const db = sql.createConnection({
   "host": 'localhost',
   "port":'3306', //포트번호
   "user": 'root',
-  "password": '970322',
+  "password": '01075943334',
   "database": 'weborrow',
 });
 

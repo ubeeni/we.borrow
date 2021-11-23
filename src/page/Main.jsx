@@ -84,7 +84,7 @@ export default function Main() {
       bottom: 'auto',
       marginRight: '-50%',
       width: '20rem',
-      height: '26rem',
+      height: '30rem',
       textAlign: 'center',
       transform: 'translate(-50%, -50%)',
     },
@@ -220,12 +220,14 @@ export default function Main() {
             style={customBoxStyles}
             isOpen={returnOpen}
             >
+              <h3>반납하기</h3>
               <div className="TxtFDiv">
                 <TextField 
                   className="TxtF"
                   label="id"
                   inputProps={{ readOnly: true, }}
                   value={prodId}
+                  margin="normal"
                   onChange={onProdIdHandler}
                   />
                 <TextField 
@@ -233,6 +235,7 @@ export default function Main() {
                   label="물품명"
                   inputProps={{ readOnly: true, }}
                   value={prodName}
+                  margin="normal"
                   onChange={onNameHandler}
                   />
                 <TextField 
@@ -240,12 +243,14 @@ export default function Main() {
                   label="물품번호"
                   inputProps={{ readOnly: true, }}
                   value={prodNumber}
+                  margin="normal"
                   onChange={onNumHandler}/>
                 <TextField 
                   className="TxtF"
                   label="대여일수"
                   inputProps={{ readOnly: true, }}
                   value={rentalDay}
+                  margin="normal"
                   onChange={onDayHandler}
                   />
                 <input
@@ -254,8 +259,8 @@ export default function Main() {
                 checked={returnChecked}
                 onChange={onReturnCheckedHandler}
                 />반납하시겠습니까?
-                <button onClick={Return}>반납</button>
-                <button onClick={closeReturnModal}>닫기</button>
+                <button className="modalBtn" onClick={Return}>반납</button>
+                <button className="modalBtn" onClick={closeReturnModal}>닫기</button>
             </div>
           </Modal>
           <button className="deleteBtn" onClick={ () => onClickDelete() }>삭제</button>
@@ -264,18 +269,21 @@ export default function Main() {
             style={customBoxStyles}
             isOpen={deleteOpen}
             >
+            <h3>삭제하기</h3>
             <div className="TxtFDiv">
               <TextField 
                 className="TxtF"
                 label="id"
                 inputProps={{ readOnly: true, }}
                 value={prodId}
+                margin="normal"
                 onChange={onProdIdHandler}/>
               <TextField 
                 className="TxtF"
                 label="물품명"
                 inputProps={{ readOnly: true, }}
                 value={prodName}
+                margin="normal"
                 onChange={onNameHandler}
                 />
               <TextField 
@@ -283,6 +291,7 @@ export default function Main() {
                 label="물품번호"
                 inputProps={{ readOnly: true, }}
                 value={prodNumber}
+                margin="normal"
                 onChange={onNumHandler}
                 />
               <TextField 
@@ -290,6 +299,7 @@ export default function Main() {
                 label="대여일수"
                 inputProps={{ readOnly: true, }}
                 value={rentalDay}
+                margin="normal"
                 onChange={onDayHandler}
                 />
               <input
@@ -298,8 +308,8 @@ export default function Main() {
               checked={deleteChecked}
               onChange={onDeleteCheckedHandler}
               />삭제하시겠습니까?
-              <button onClick={Delete}>삭제</button>
-              <button onClick={closeDeleteModal}>닫기</button>
+              <button className="modalBtn" onClick={Delete}>삭제</button>
+              <button className="modalBtn" onClick={closeDeleteModal}>닫기</button>
             </div>
           </Modal>
           <button className="registerBtn" onClick={ () => onClickRegister() }>등록</button>
@@ -329,14 +339,14 @@ export default function Main() {
                   placeholder="대여가능일수"
                   onChange={onDayHandler}/>
                 <input
-                  className="detailsCheck"
+                  className="detailsCheckr"
                   type="checkbox"
                   checked={registerChecked}
                   onChange={onRegisterCheckedHandler}
                   />등록하시겠습니까?
               </div>
-              <button onClick={Register}>등록</button>
-              <button onClick={closeRegisterModal}>닫기</button>
+              <button className="modalBtn" onClick={Register}>등록</button>
+              <button className="modalBtn" onClick={closeRegisterModal}>닫기</button>
           </Modal>
           <button className="viewBtn" onClick={ () => onClickView() }>조회</button>
           <div style={{width: '75rem', margin: '10px auto'}}>
