@@ -17,13 +17,13 @@
 * 관리자: 관리대장을 매번 확인하고 관리해야 하는 불편함
 * 사용자: 수기로 작성해야 하는 대여 기록으로 인한 번거로운 절차
 ---
-#### 2. role
+#### 2. Role
 |이름|역할|
 |------|---|
-|[김유빈](https://github.com/ubeeni)|:art:Design|
-|[문정호](https://github.com/ILWAT)|:unlock:Back-end|
-|[윤석현](https://github.com/master1st)|:unlock:Back-end|
-|[정서현](https://github.com/JSH99)|:computer:Front-end|
+|[김유빈(ubeeni)](https://github.com/ubeeni)|:art:Design|
+|[문정호(ILWAT)](https://github.com/ILWAT)|:unlock:Back-end|
+|[윤석현(master1st)](https://github.com/master1st)|:unlock:Back-end|
+|[정서현(JSH99)](https://github.com/JSH99)|:computer:Front-end|
 
 ---
 #### 3. 주요내용
@@ -41,24 +41,38 @@
 ---
 #### 5. 최종 구현
 *Login 화면*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143406179-0738dc8d-d2ba-4cc7-a2d5-e198943f0378.png)
+<br>
 *회원가입 Modal*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143406342-db56dc53-1485-4d37-a2b7-c501eda493d1.png)
+<br>
 *아이디, 비밀번호 입력*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143406440-57391f46-2f30-4b88-be4c-5a614131e65c.png)
+<br>
 *관리자 화면*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143406555-24763135-5a92-4902-a8c7-7f56883cdf24.png)
+<br>
 *물품등록*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143406596-d2e2198a-42c5-4c3c-a7d2-fd958b0486e7.png)
+<br>
 *사용자 메인화면, MainUser 페이지*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143406673-6bcf29ff-c1d1-424f-a7ef-dbfc9bb15dec.png)
+<br>
 *대여*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143407092-18c1a2df-28d2-402d-8b1f-f61e8b424456.png)
-*물품등록*
-![image](https://user-images.githubusercontent.com/69234788/143407135-7e192241-a2cc-475a-b278-defdced9278a.png)
+<br>
 *반납*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143407184-6a6dcecb-6e50-4789-a238-5acacfeb7088.png)
+<br>
 *삭제*
+<br>
 ![image](https://user-images.githubusercontent.com/69234788/143407207-e1960c97-5bac-4ca0-8ec0-aa7165290005.png)
-
 
