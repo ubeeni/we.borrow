@@ -128,7 +128,7 @@ foreign key(rentalUser) references login(id));
 ```
 npm install
 ```
-RUN
+RUN(각각 다른 터미널을 통해)
 ```
 npm start
 ```
