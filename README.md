@@ -1,17 +1,17 @@
 # :bulb:we.borrow:bulb:
-# 대여물품 관리 웹사이트
-## 🛠Tech Stack🛠
+## 대여물품 관리 웹사이트
+## 🛠Tech Stack🛠 
 <img src="https://img.shields.io/badge/react-61DAFB?style=flat-square&logo=react&logoColor=black"/></a> 
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/></a> 
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/></a> 
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
 
 ## 주제: ```물품 대여 서비스```를 기반으로 한 웹페이지 제작
-* 관리자: 대여할 물품의 등록 및 삭제를 진행 / 편리한 반납 과정 진행
-* 대여자: 대여 가능한 물품 확인 및 대여
-* 공통: 검색을 통한 원하는 대여 물품의 현 상황 확인 가능
+* 관리자: 대여할 물품의 ```등록``` 및 ```삭제```를 진행 / 편리한 ```반납``` 과정 진행
+* 대여자: 대여 가능한 물품 확인 및 ```대여```
+* 공통: 검색을 통한 원하는 대여 물품의 현 상황```(대여중 / 대여가능)``` 확인 가능
 ---
 ### 1. 프로젝트 목적 & 필요성: 수기 작성을 통한 물품 대여 진행의 불편함 개선
 * 관리자: 관리대장을 매번 확인하고 관리해야 하는 불편함
@@ -34,14 +34,14 @@
 ---
 ### 4. 기대효과
 * 실생활에 적용 가능한 웹페이지
-  - ex) 학생회 서비스나, 아파트 & 기숙사 등 물품 대여 서비스를 진행하고 있는 여러 곳에서 활용 가능
+  - ex) ```학생회 서비스```나, 아파트 & 기숙사 등 물품 대여 서비스를 진행하고 있는 여러 곳에서 활용 가능
 1. 대여 물품을 수기로 작성함으로써 겪는 불편함이나 실수를 줄일 수 있음
 2. 정확하고 깔끔하게 대여 물품을 관리할 수 있음
 3. 사용자(대여자)는 대여하고자 하는 물품이 있는지 미리 확인할 수 있기 때문에 대여 장소에 방문했다 헛걸음하는 수고를 줄일 수 있음
 ---
 ### 5. 구현 코드
-*Front-end rent code*
-```
+**Front-end rent code**
+``` js
 const Rent = () => {
     if(!prodId) {
       return alert('대여할 물품을 선택해주세요!')
@@ -77,8 +77,8 @@ const Rent = () => {
       }
     }
 ```
-*Back-end rent code*
-```
+**Back-end rent code**
+``` js
 app.post("/rental/startrental", (request, response) => {
   const id = request.body.id //사용자 아이디
   const num = request.body.num //물품 아이디
@@ -107,9 +107,9 @@ app.post("/rental/startrental", (request, response) => {
   });
 
 })
-```
-*create table*
-```
+``` 
+**create table**
+``` 
 create table prod(
 prodId int auto_increment,
 prodName varchar(20),
@@ -124,11 +124,11 @@ foreign key(rentalUser) references login(id));
 ```
 ---
 ### 6. 실행
-최초 1회 실행
+**최초 1회 실행**
 ```
 npm install
 ```
-RUN(각각 다른 터미널을 통해)
+**RUN(각각 다른 터미널을 통해)**
 ```
 npm start
 ```
