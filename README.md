@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
 
-## 주제: ```물품 대여 서비스```를 기반으로 한 웹페이지 제작
+## 주제: 물품 대여 서비스를 기반으로 한 웹페이지 제작
 * 관리자: 대여할 물품의 ```등록``` 및 ```삭제```를 진행 / 편리한 ```반납``` 과정 진행
 * 대여자: 대여 가능한 물품 확인 및 ```대여```
 * 공통: 검색을 통한 원하는 대여 물품의 현 상황```(대여중 / 대여가능)``` 확인 가능
