@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
 
-### 주제: 물품 대여 서비스를 기반으로 한 웹페이지 제작
+### 주제: ```물품 대여 서비스```를 기반으로 한 웹페이지 제작
 * 관리자: 대여할 물품의 등록 및 삭제를 진행 / 편리한 반납 과정 진행
 * 대여자: 대여 가능한 물품 확인 및 대여
 * 공통: 검색을 통한 원하는 대여 물품의 현 상황 확인 가능
@@ -29,8 +29,8 @@
 #### 3. 주요내용
 * 메인 로그인 화면, 회원가입, 물품 목록 및 대여 현황 조회, 대여 물품 등록, 물품 대여, 반납 등의 상세 페이지 구현
 * 로그인 정보에 따라 서비스 제공자와 이용자를 나눠 데이터베이스에 정보 저장 -> 로그인 -> 각자 다른 메인 페이지 화면
-  - 관리자 모드: 대여 물품 등록(삭제) & 반납 처리
-  - 사용자 모드: 물품 리스트 조회 & 대여
+  - ```관리자 모드```: 대여 물품 등록(삭제) & 반납
+  - ```사용자 모드```: 물품 리스트 조회 & 대여
 ---
 #### 4. 기대효과
 * 실생활에 적용 가능한 웹페이지
@@ -39,7 +39,103 @@
 2. 정확하고 깔끔하게 대여 물품을 관리할 수 있음
 3. 사용자(대여자)는 대여하고자 하는 물품이 있는지 미리 확인할 수 있기 때문에 대여 장소에 방문했다 헛걸음하는 수고를 줄일 수 있음
 ---
-#### 5. 최종 구현
+#### 5. 구현 코드
+*Front-end rent code*
+```
+const Rent = () => {
+    if(!prodId) {
+      return alert('대여할 물품을 선택해주세요!')
+    }
+    else {
+      if(checked==true) {
+        axios.post('http://localhost:4000/rental/startrental', {
+          id: userId,
+          num: prodId
+          }).then((Response)=>{
+            console.log(Response.data);
+            if(Response.data=="대여중") {
+            //setRentState(0);
+            alert("대여중인 물품은 대여할 수 없습니다!");
+            }
+            else {
+            //setRentState(1);
+            alert("대여되었습니다:)\n대여물품 수령은 학생회관으로 와주세요!");
+            }
+            })
+        . catch((Error)=>{console.log(Error)})
+          // console.log(rentState);
+          // if(rentState) {
+          //   return alert("대여되었습니다:)\n대여물품 수령은 학생회관으로 와주세요!");
+          // }
+          // else {
+          //   return alert("대여중인 물품은 대여할 수 없습니다!");
+          // }
+         
+      }
+      else {
+        return alert('내용을 확인하고 체크해주세요!');
+      }
+    }
+```
+*Back-end rent code*
+```
+app.post("/rental/startrental", (request, response) => {
+  const id = request.body.id //사용자 아이디
+  const num = request.body.num //물품 아이디
+  const borrow="대여중"
+  const date=new Date();
+  const year=date.getFullYear();
+  const month=date.getMonth()+1%13;
+  const day=date.getDate()%31;
+  const nowdate=year+"-"+month+"-"+day
+  var returndate="";
+  db.query('SELECT rentalDay, state FROM prod where prodId=?',[num], (err,rows) => {
+    if(err) throw err;
+    //console.log(rows[0].state);
+    
+    if(rows[0].state=="대여가능") {
+      db.query('UPDATE prod SET rentalUser=?,state=?,rentalDate=? WHERE prodId=? ',[id,borrow,nowdate,num], (err,rows) => {
+        if(err) throw err;
+        });
+      response.send(`${rows[0].state}`);
+    }
+    else {
+      response.send(`${rows[0].state}`);
+    }
+
+    console.log(`${rows[0].state}`);
+  });
+
+})
+```
+*create table*
+```
+create table prod(
+prodId int auto_increment,
+prodName varchar(20),
+prodNumber int,
+rentalDay int,
+state varchar(20),
+returnDate date,
+rentalDate date,
+rentalUser varchar(20),
+primary key(prodId),
+foreign key(rentalUser) references login(id));
+```
+---
+#### 5. 실행
+최초 1회 실행
+```
+npm install
+```
+RUN
+```
+npm start
+```
+```
+node db.js
+```
+#### 6. 최종 구현
 *Login 화면*
 <br>
 ![image](https://user-images.githubusercontent.com/69234788/143406179-0738dc8d-d2ba-4cc7-a2d5-e198943f0378.png)
